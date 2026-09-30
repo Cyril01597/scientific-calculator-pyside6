@@ -15,7 +15,7 @@ class Fraction(MathElement):
         metrics = QFontMetrics(self.font)
 
         return QSize(
-            metrics.horizontalAdvance(text),
+            metrics.horizontalAdvance(str(text)),
             metrics.height()
         )
 
@@ -54,7 +54,7 @@ class Fraction(MathElement):
         painter.drawText(
             int(x),
             int(y + metrics.ascent()),
-            element
+            str(element)
         )
 
     def draw(self, painter, x, y):
