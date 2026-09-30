@@ -13,7 +13,11 @@ from app.math_display.limit import Limit
 from app.math_display.function import Function
 from app.math_display.parentheses import Parentheses
 from app.math_display.binary_operation import BinaryOperation
-
+from app.math_display.integral import Integral
+from app.math_display.derivative import Derivative
+from app.math_display.matrix import Matrix
+from app.math_display.vector import Vector
+from app.math_display.absolute_value import AbsoluteValue
 
 def main():
     app = QApplication(sys.argv)
@@ -61,21 +65,23 @@ def main():
 
     # Test expression
     math_display.set_expression(
-    Fraction(
-        BinaryOperation(
-            Power("x", "2"),
-            "+",
-            "1"
-        ),
-        Root(
-            BinaryOperation(
-                "x",
-                "+",
-                "1"
+    BinaryOperation(
+        AbsoluteValue(
+            Function(
+                "sin",
+                Parentheses("x")
             )
+        ),
+        "+",
+        Root(
+            Matrix([
+                ["1", "2"],
+                ["3", "4"]
+            ])
         )
     )
 )
+
 
     window.show()
 
