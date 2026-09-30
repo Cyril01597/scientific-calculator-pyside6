@@ -6,6 +6,7 @@ from PySide6.QtCore import QFile, Qt
 
 from app.math_display.display import MathDisplay
 from app.math_display.fraction import Fraction
+from app.math_display.power import Power
 
 
 def main():
@@ -23,7 +24,10 @@ def main():
         print("Failed to load calculator.ui")
         sys.exit(1)
 
-    scroll_area = window.findChild(QScrollArea, "expressionScrollArea")
+    scroll_area = window.findChild(
+        QScrollArea,
+        "expressionScrollArea"
+    )
 
     if scroll_area is None:
         print("Could not find expressionScrollArea")
@@ -45,7 +49,10 @@ def main():
     scroll_area.setWidget(math_display)
 
     math_display.set_expression(
-        Fraction("x + 1", "x - 1")
+        Fraction(
+            Power("x", "2"),
+            "x - 1"
+        )
     )
 
     window.show()
