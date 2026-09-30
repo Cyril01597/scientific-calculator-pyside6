@@ -115,10 +115,10 @@
          <widget class="QWidget" name="mathDisplay" native="true">
           <property name="geometry">
            <rect>
-            <x>150</x>
-            <y>20</y>
-            <width>181</width>
-            <height>91</height>
+            <x>20</x>
+            <y>10</y>
+            <width>441</width>
+            <height>101</height>
            </rect>
           </property>
          </widget>

@@ -5,6 +5,7 @@ from PySide6.QtUiTools import QUiLoader
 from PySide6.QtCore import QFile, Qt
 
 from app.math_display.display import MathDisplay
+from app.math_display.fraction import Fraction
 
 
 def main():
@@ -23,22 +24,29 @@ def main():
         sys.exit(1)
 
     scroll_area = window.findChild(QScrollArea, "expressionScrollArea")
-    
+
     if scroll_area is None:
         print("Could not find expressionScrollArea")
         sys.exit(1)
 
     scroll_area.setWidgetResizable(True)
     scroll_area.setAlignment(Qt.AlignCenter)
-    scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-    scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-    
+
+    scroll_area.setHorizontalScrollBarPolicy(
+        Qt.ScrollBarAlwaysOff
+    )
+
+    scroll_area.setVerticalScrollBarPolicy(
+        Qt.ScrollBarAlwaysOff
+    )
 
     math_display = MathDisplay()
 
     scroll_area.setWidget(math_display)
 
-    math_display.set_expression("x + 1")
+    math_display.set_expression(
+        Fraction("x + 1", "x - 1")
+    )
 
     window.show()
 
