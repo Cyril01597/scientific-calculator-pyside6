@@ -1,3 +1,4 @@
+import math
 from app.engine import CalculatorEngine
 from app.expression.number import Number
 from app.expression.binary import BinaryOperation
@@ -85,3 +86,62 @@ def test_engine_backspace():
     assert engine.backspace() == "12"
     assert engine.backspace() == "1"
     assert engine.backspace() == ""
+
+def test_default_angle_mode():
+    engine = CalculatorEngine()
+
+    assert engine.angle_mode == "DEG"
+
+
+def test_set_angle_mode():
+    engine = CalculatorEngine()
+
+    assert engine.set_angle_mode("RAD") == "RAD"
+    assert engine.angle_mode == "RAD"
+
+    assert engine.set_angle_mode("GRAD") == "GRAD"
+    assert engine.angle_mode == "GRAD"
+
+
+def test_toggle_angle_mode():
+    engine = CalculatorEngine()
+
+    assert engine.toggle_angle_mode() == "RAD"
+    assert engine.toggle_angle_mode() == "GRAD"
+    assert engine.toggle_angle_mode() == "DEG"
+
+
+def test_invalid_angle_mode():
+    engine = CalculatorEngine()
+
+    try:
+        engine.set_angle_mode("INVALID")
+        assert False
+    except ValueError:
+        assert True
+
+
+def test_sin_degrees():
+    engine = CalculatorEngine()
+
+    engine.set_angle_mode("DEG")
+
+    assert abs(engine.sin(30) - 0.5) < 1e-10
+
+
+def test_sin_radians():
+    engine = CalculatorEngine()
+
+    engine.set_angle_mode("RAD")
+
+    assert abs(
+        engine.sin(math.pi / 6) - 0.5
+    ) < 1e-10
+
+
+def test_sin_gradians():
+    engine = CalculatorEngine()
+
+    engine.set_angle_mode("GRAD")
+
+    assert abs(engine.sin(50) - 0.707106781) < 1e-8
