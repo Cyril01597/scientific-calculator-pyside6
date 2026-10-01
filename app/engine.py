@@ -5,6 +5,27 @@ from app.expression.unary import UnaryOperation
 
 class CalculatorEngine:
 
+    def __init__(self):
+        self.current_expression = ""
+        self.result = None
+
+    def input(self, value):
+        self.current_expression += str(value)
+        return self.current_expression
+    
+    def clear(self):
+        self.current_expression = ""
+        self.result = None
+
+        return self.current_expression
+    
+    def backspace(self):
+        self.current_expression = (
+            self.current_expression[:-1]
+        )
+
+        return self.current_expression
+
     def evaluate(self, expression):
         try:
             return expression.evaluate()

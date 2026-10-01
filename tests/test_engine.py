@@ -58,3 +58,30 @@ def test_evaluate_nested_expression():
     )
 
     assert engine.evaluate(expression) == 10
+
+def test_engine_input():
+    engine = CalculatorEngine()
+
+    assert engine.input("2") == "2"
+    assert engine.input("+") == "2+"
+    assert engine.input("3") == "2+3"
+
+    assert engine.current_expression == "2+3"
+
+def test_engine_clear():
+    engine = CalculatorEngine()
+
+    engine.input("123")
+
+    assert engine.clear() == ""
+    assert engine.current_expression == ""
+    assert engine.result is None
+
+def test_engine_backspace():
+    engine = CalculatorEngine()
+
+    engine.input("123")
+
+    assert engine.backspace() == "12"
+    assert engine.backspace() == "1"
+    assert engine.backspace() == ""
