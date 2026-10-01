@@ -43,3 +43,16 @@ def test_binary():
     )
 
     assert expression.evaluate() == 5
+
+def test_nested_binary_operations():
+    expression = BinaryOperation(
+        BinaryOperation(
+            Number(2),
+            "*",
+            Number(3)
+        ),
+        "+",
+        Number(4)
+    )
+
+    assert expression.evaluate() == 10

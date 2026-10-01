@@ -1,4 +1,6 @@
 from app.engine import CalculatorEngine
+from app.expression.number import Number
+from app.expression.binary import BinaryOperation
 
 
 def test_add():
@@ -41,3 +43,18 @@ def test_division_by_zero():
     engine = CalculatorEngine()
 
     assert engine.divide(10, 0) == "Error: Division by zero"
+
+def test_evaluate_nested_expression():
+    engine = CalculatorEngine()
+
+    expression = BinaryOperation(
+        BinaryOperation(
+            Number(2),
+            "*",
+            Number(3)
+        ),
+        "+",
+        Number(4)
+    )
+
+    assert engine.evaluate(expression) == 10
