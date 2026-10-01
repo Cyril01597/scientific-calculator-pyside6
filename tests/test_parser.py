@@ -87,3 +87,29 @@ def test_parse_nested_function():
     )
 
     assert expression.evaluate() == 5
+
+def test_parse_pi():
+    parser = ExpressionParser()
+
+    expression = parser.parse("pi")
+
+    assert expression.evaluate() > 3.14
+    assert expression.evaluate() < 3.15
+
+
+def test_parse_e():
+    parser = ExpressionParser()
+
+    expression = parser.parse("e")
+
+    assert expression.evaluate() > 2.71
+    assert expression.evaluate() < 2.72
+
+
+def test_parse_constant_expression():
+    parser = ExpressionParser()
+
+    expression = parser.parse("2 * pi")
+
+    assert expression.evaluate() > 6.28
+    assert expression.evaluate() < 6.29

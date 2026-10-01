@@ -1,8 +1,10 @@
 import ast
+from platform import node
 
 from .number import Number
 from .binary import BinaryOperation
 from .unary import UnaryOperation
+from .constant import Constant
 
 
 class ExpressionParser:
@@ -122,6 +124,14 @@ class ExpressionParser:
                 operand
             )
 
+        if isinstance(node, ast.Name):
+            if node.id in Constant.VALUES:
+                return Constant(node.id)
+            
+            raise ValueError(
+                f"Unknown constant '{node.id}'"
+            )
+        
         raise ValueError(
             "Unsupported expression"
         )
