@@ -15,6 +15,19 @@ class ExpressionParser:
         ast.Pow: "^",
     }
 
+    FUNCTIONS = {
+        "sqrt": "sqrt",
+        "sin": "sin",
+        "cos": "cos",
+        "tan": "tan",
+        "asin": "asin",
+        "acos": "acos",
+        "atan": "atan",
+        "ln": "ln",
+        "log": "log",
+        "abs": "abs",
+    }
+
     def parse(self, expression):
         expression = expression.replace("^", "**")
 
@@ -74,6 +87,39 @@ class ExpressionParser:
 
             raise ValueError(
                 "Unsupported unary operator"
+            )
+
+        if isinstance(node, ast.Call):
+
+            if not isinstance(node.func, ast.Name):
+                raise ValueError(
+                    "Unsupported function"
+                )
+
+            function_name = node.func.id
+
+            operator = self.FUNCTIONS.get(
+                function_name
+            )
+
+            if operator is None:
+                raise ValueError(
+                    f"Unknown function '{function_name}'"
+                )
+
+            if len(node.args) != 1:
+                raise ValueError(
+                    f"Function '{function_name}' "
+                    "requires one argument"
+                )
+
+            operand = self._convert(
+                node.args[0]
+            )
+
+            return UnaryOperation(
+                operator,
+                operand
             )
 
         raise ValueError(
